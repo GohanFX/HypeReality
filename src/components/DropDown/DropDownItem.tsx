@@ -1,21 +1,29 @@
+import Link from "next/link";
 import { MouseEventHandler, ReactElement } from "react";
 import { IconType } from "react-icons";
 
 const DropDownItem = ({
   children,
   handler,
-  icon
+  icon,
+  href
 }: {
   children: React.ReactNode;
-  handler?: MouseEventHandler<HTMLDivElement>;
+  handler?: MouseEventHandler<any>;
   icon?: ReactElement;
+  href: string
 }) => {
   return (
-    <li>
-      <div onClick={handler} className="w-full text-lg p-2 space-x-2 drop-shadow-lg hover:bg-background first:rounded-md text-secondary hover:text-primary transition-colors flex items-center">
-        <span className="pt-1">{icon}</span> <span> {children}</span>
-      </div>
-    </li>
+    <Link href={href}  onClick={handler}>
+      <li onClick={() => {}}>
+        <div
+         
+          className="w-full text-lg p-2 space-x-2 drop-shadow-lg hover:bg-background first:rounded-md text-secondary hover:text-primary transition-colors flex items-center"
+        >
+          <span className="pt-1">{icon}</span> <span> {children}</span>
+        </div>
+      </li>
+    </Link>
   );
 };
 export default DropDownItem;
