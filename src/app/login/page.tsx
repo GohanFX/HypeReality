@@ -3,16 +3,12 @@ import React, { useState } from "react";
 import Link from "next/link";
 import axios from "axios";
 
-interface LoginFormProps {
-  onSubmit: (username: string, password: string) => void;
-}
-
-const LoginForm: React.FC<LoginFormProps> = ({ onSubmit }) => {
+const LoginForm: React.FC = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleSubmit = async (event: React.MouseEvent<HTMLButtonElement>) => {
-    event.preventDefault();
+  const handleSubmit = async () => {
+    console.log(username, password)
     if(username && password) {
         const authReq = await axios.post("/api/v1/auth/login", {
             username: username,
@@ -34,11 +30,13 @@ const LoginForm: React.FC<LoginFormProps> = ({ onSubmit }) => {
           <input
             type="text"
             placeholder="Felhasználó név"
+            onChange={(e) => setUsername(e.target.value)}
             className="border-b-2 w-3/5 placeholder:text-secondary placeholder:opacity-75 placeholder:uppercase  border-text bg-transparent text-[30] text-secondary font-normal outline-none"
           />
           <input
-            type="text"
+            type="password"
             placeholder="Jelszó"
+            onChange={(e) => setPassword(e.target.value)}
             className="border-b-2 w-3/5 border-text bg-transparent placeholder:text-secondary placeholder:opacity-75 placeholder:uppercase text-[30] text-secondary font-normal outline-none"
           />
         </div>

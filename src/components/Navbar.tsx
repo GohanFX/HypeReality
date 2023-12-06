@@ -1,16 +1,23 @@
-"use client";
+
 import Image from "next/image";
 import React, { useState } from "react";
 import Logo from "../utils/images/Logo.png";
-import { NavbarItems } from "@/utils/utils";
+import { IronOptions, NavbarItems } from "@/utils/utils";
 import { it } from "node:test";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
-const Navbar = () => {
-  const path = usePathname();
-  const [toggle, setToggle] = useState(false);
-  return path !== "/login" ? (
-    <div className="w-full flex py-2 justify-between items-center navbar">
+import { IronSessionData, getIronSession } from "iron-session";
+import { cookies } from "next/headers";
+import { User } from "@/utils";
+
+async function getIronSessionData( ) {
+  return await getIronSession<IronSessionData>(cookies(), IronOptions);
+}
+
+
+const Navbar = async () => {
+  const session = (await getIronSessionData()).user;
+  return <div className="w-full flex py-2 justify-between items-center navbar">
       <div className="w-56 flex p-2 space-x-2">
         <div className=" object-contain">
           <Image src={Logo} alt="asd" height={500} width={170} />
@@ -38,48 +45,28 @@ const Navbar = () => {
               </li>
             );
           })}
+          </ul>
 
-          <div className="sm:hidden flex flex-1 justify-end items-center">
-            <img
-              src={toggle ? "close" : "open"}
-              alt="menu"
-              className="w-[28px] h-[28px] object-contain"
-              onClick={() => setToggle(!toggle)}
-            />
-
-            {/* Sidebar */}
-            <div
-              className={`${
-                !toggle ? "hidden" : "flex"
-              } p-6 bg-black-gradient absolute top-20 right-0 mx-4 my-2 min-w-[140px] rounded-xl sidebar`}
-            >
-              <ul className="list-none flex justify-end items-start flex-1 flex-col">
-                {NavbarItems.map((nav, index) => (
-                  <li
-                    key={index}
-                    className={`font-poppins font-medium cursor-pointer text-[16px]`}
-                  >
-                    <a href={`#${nav.href}`}>{nav.text}</a>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </div>
-        </ul>
+        
         <div className="flex mx-auto ml-2 space-x-2 ">
-          <Link href={'/login'}>
+          {session ? (<div>
+            Hello! {session.username}
+          </div>) : (<><Link href={'/login'}>
             <button className="border rounded-sm border-secondary  h-6 w-12 text-sm">
               Login
             </button>
           </Link>
           <button className="border rounded-sm border-secondary  h-6 w-12 text-sm">
             Register
-          </button>
+          </button></>)}
         </div>
       </div>
     </div>
-  ) : (
-    <div className="w-full flex py-2 justify-center items-center navbar">
+  ;
+};
+
+const LoginNavbar = () => {
+  return <div className="w-full flex py-2 justify-center items-center navbar">
       <div className=" object-contain">
         <Image src={Logo} alt="asd" className="w-fit h-fit" />
       </div>
@@ -87,7 +74,6 @@ const Navbar = () => {
         <span className="text-primary">Hype</span>Reality
       </h2>
     </div>
-  );
-};
+}
 
 export default Navbar;
