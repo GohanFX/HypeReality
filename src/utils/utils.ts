@@ -6,7 +6,7 @@ import Yeezy from "./images/yeezy.png";
 import Jordan from "./images/jordair.png";
 
 export const IronOptions = {
-<<<<<<< HEAD
+
   password: "AbwnDoPET4XNW7Tyx8wtXmgdtHEGgtCG",
   cookieName: "HypeSession",
   cookieOptions: {
@@ -24,15 +24,13 @@ type RandomizedShoe = {
   image: StaticImageData;
   description: string;
 };
-=======
-    password: "AbwnDoPET4XNW7Tyx8wtXmgdtHEGgtCG",
-    cookieName: "HypeSession",
-    cookieOptions: {
-      secure: false
-    }
-}
 
->>>>>>> 34d53a0784fd69f5341ed95d37a4fda30d41823c
+
+
+
+
+
+
 
 type NavItems = {
   text: string;
@@ -70,7 +68,7 @@ export const NavbarItems: NavItems[] = [
     href: "/sell",
   },
 ];
-<<<<<<< HEAD
+
 
 export const Shoes: RandomizedShoe[] = [
   {
@@ -110,8 +108,8 @@ export const Shoes: RandomizedShoe[] = [
   },
 ];
 
-=======
->>>>>>> 34d53a0784fd69f5341ed95d37a4fda30d41823c
+
+
 export const SlideableContent: SlideableItem[] = [
   {
     banner: Frame,
@@ -190,8 +188,8 @@ export const ShoeFrames: ShoeFrame[] = [
     href: "/users/gohanfy/<shoeid>",
     liked: false,
   },
-<<<<<<< HEAD
-=======
+
+
   
->>>>>>> 34d53a0784fd69f5341ed95d37a4fda30d41823c
+
 ];
