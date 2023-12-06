@@ -26,11 +26,7 @@ const ContentSlide = () => {
 
             <div className="absolute flex place-content-center space-x-2 bottom-0 h-8 w-full bg-red">
             {SlideableContent.map((item, index) => {
-<<<<<<< HEAD
             return index == page ? <div key={index} className="rounded-full bg-secondary h-3 w-3"></div> : <div key={index} className="rounded-full bg-gray-200 h-3 w-3"></div>;
-=======
-            return index == page ? <div className="rounded-full bg-secondary h-3 w-3"></div> : <div className="rounded-full bg-gray-200 h-3 w-3"></div>;
->>>>>>> 34d53a0784fd69f5341ed95d37a4fda30d41823c
            })}
             </div>
           </div>

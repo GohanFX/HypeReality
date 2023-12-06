@@ -9,12 +9,7 @@ import Link from "next/link";
 const Navbar = () => {
   const path = usePathname();
   const [toggle, setToggle] = useState(false);
-<<<<<<< HEAD
   return path !== "/login" ? (
-=======
-  return (
-    path !== "/login" ?
->>>>>>> 34d53a0784fd69f5341ed95d37a4fda30d41823c
     <div className="w-full flex py-2 justify-between items-center navbar">
       <div className="w-56 flex p-2 space-x-2">
         <div className=" object-contain">
@@ -72,24 +67,17 @@ const Navbar = () => {
           </div>
         </ul>
         <div className="flex mx-auto ml-2 space-x-2 ">
-<<<<<<< HEAD
           <Link href={'/login'}>
             <button className="border rounded-sm border-secondary  h-6 w-12 text-sm">
               Login
             </button>
           </Link>
-=======
-          <button className="border rounded-sm border-secondary  h-6 w-12 text-sm">
-            Login
-          </button>
->>>>>>> 34d53a0784fd69f5341ed95d37a4fda30d41823c
           <button className="border rounded-sm border-secondary  h-6 w-12 text-sm">
             Register
           </button>
         </div>
       </div>
     </div>
-<<<<<<< HEAD
   ) : (
     <div className="w-full flex py-2 justify-center items-center navbar">
       <div className=" object-contain">
@@ -98,14 +86,6 @@ const Navbar = () => {
       <h2 className="text-2xl font-bold text-text">
         <span className="text-primary">Hype</span>Reality
       </h2>
-=======
-    :
-    <div className="w-full flex py-2 justify-center items-center navbar">
-        <div className=" object-contain">
-          <Image src={Logo} alt="asd" className="w-fit h-fit" />
-        </div>
-        <h2 className="text-2xl font-bold text-text"><span className="text-primary">Hype</span>Reality</h2>      
->>>>>>> 34d53a0784fd69f5341ed95d37a4fda30d41823c
     </div>
   );
 };
