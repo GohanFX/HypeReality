@@ -1,4 +1,4 @@
-import Navbar from "@/components/Navbar";
+import Navbar from "@/components/Navbars/Navbar";
 import Image from "next/image";
 import Frame from "../utils/Frame.png";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";

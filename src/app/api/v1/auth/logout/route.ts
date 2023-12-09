@@ -12,3 +12,12 @@ export async function POST(req: Request) {
         status: 200,
     });
 }
+
+export async function GET(req: Request) {
+    const sess = await getIronSession<User>(cookies(), IronOptions);
+    await sess.destroy();
+
+    return new Response("OK", {
+        status: 200,
+    });
+}
