@@ -1,11 +1,10 @@
-"use client"
+"use client";
 import { User } from "@/utils";
 import { IronSessionData } from "iron-session";
-import { createContext, useContext, useState } from "react";
-
+import { createContext, useContext, useEffect, useState } from "react";
+import axios from "axios";
 interface SessionContextProps {
     user: User;
-    setSession: (session: User) => void;
 }
 
 const SessionContext = createContext<SessionContextProps>({} as SessionContextProps);
@@ -15,11 +14,9 @@ export const useSession = () => {
     return session;
 };
 
-export const SessionProvider = ({children, user}: { children: React.ReactNode, user: User }) => {
-    const [session, setSession] = useState<User>(user);
-    
+export const SessionProvider = async ({children, user}: { children: React.ReactNode, user: User }) => {
 
-    return <SessionContext.Provider value={{user, setSession}}>
+    return <SessionContext.Provider value={{user}}>
         {children}
         </SessionContext.Provider>
 };

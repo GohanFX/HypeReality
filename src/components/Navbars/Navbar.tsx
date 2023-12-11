@@ -14,13 +14,13 @@ import { IronSessionData } from "iron-session";
 
 
 
-const Navbar = ({user}: IronSessionData) => {
+const Navbar = ({user}: {user: User}) => {
   const path = usePathname();
    switch (path) {
       case "/login":
         return <LoginNavbar />;       
       default:
-        return <NormalNavbar />;
+        return <NormalNavbar user={user} />;
     };
   ;
 };
@@ -28,7 +28,7 @@ const Navbar = ({user}: IronSessionData) => {
 
 const LoginNavbar = () => {
   return <div className="w-full flex py-2 justify-center items-center navbar">
-      <div className=" object-contain">
+      <div className=" object-fit">
         <Image src={Logo} alt="asd" className="w-fit h-fit" />
       </div>
       <h2 className="text-2xl font-bold text-text">

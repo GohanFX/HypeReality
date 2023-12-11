@@ -20,9 +20,8 @@ const LoginForm: React.FC = () => {
         });
         if (authReq.status === 200) {
           const req = await axios.get("/api/v1/auth/session");
-          session.setSession(await req.data);
           router.push("/");
-
+          router.refresh();
         }
       } catch (err) {
         console.log(err);
@@ -33,7 +32,7 @@ const LoginForm: React.FC = () => {
   return (
     <div className="w-full h-screen flex items-center place-content-center">
       <div className="h-3/4 uppercase text-center space-y-10 text-2xl md:text-3xl font-heebo text-secondary font-bold md:w-2/6 w-1/2 p-2">
-        <h1>Bejelentkezés</h1>
+        <h1 className="-ml-2">Bejelentkezés</h1>
         <div className="text-lg  w-full space-y-8">
           <div>
             <input
