@@ -6,7 +6,9 @@ interface LayoutContextState {
 
 interface LayoutContextProps {
     Menus: LayoutContextState;
-    setMenuState: (menu: string) => void;
+    handleClick: (menu: string) => void;
+    getState: (menu: string) => boolean;
+
 };
 
 const Menus: LayoutContextState  = {
@@ -15,9 +17,7 @@ const Menus: LayoutContextState  = {
     "Notifications": false,
 };
 
-const LayoutContext = createContext<LayoutContextProps>({Menus, setMenuState: (menu: string) => {
-    Menus[menu] = !Menus[menu];
-}});
+const LayoutContext = createContext<LayoutContextProps>({Menus, handleClick: () => {}, getState: () => false});
 
 const useLayout = () => {
     const context = useContext(LayoutContext);
@@ -28,11 +28,31 @@ const useLayout = () => {
 }
 
 const LayoutProvider = ({children}: {children: React.ReactNode}) => {
-    const layout = useLayout();
+   
+  
 
+    const [isClicked, setIsClicked] = useState<LayoutContextState>(Menus);
+    const handleClick = (menu: string) => {
+        setIsClicked({...isClicked, [menu]: !isClicked[menu]});
+        
+    };
+    const getState = (menu: string) => {
+        return isClicked[menu];
+    }
 
-    return <LayoutContext.Provider value={layout}>
-        {children}
+    const handleOutSideClick = (event: React.MouseEvent<HTMLElement>) => {
+        if(event.target instanceof HTMLElement) {
+            if(!(event.target.id in Menus)) {
+                for(let key in isClicked) {
+                    setIsClicked({[key]: false});
+                }
+            }
+
+        }
+    };
+
+    return <LayoutContext.Provider value={{Menus, handleClick, getState}}>
+        <div onClick={handleOutSideClick}>{children}</div>
     </LayoutContext.Provider>
 };
 
