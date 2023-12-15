@@ -20,11 +20,14 @@ export async function POST(req: Request) {
   if(user) {
     return new Response(JSON.stringify({message: "User already exists"}), {status: 401});
   }
+  const desc: string = "";
   const hashedPassword = await bcrypt.hash(password, 10);
   const newUser = await prisma.user.create({
     data: {
+      description: desc,
       username: username,
       email: email,
+      
       password: hashedPassword
     }
   });

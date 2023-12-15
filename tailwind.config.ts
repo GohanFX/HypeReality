@@ -21,7 +21,7 @@ const config: Config = {
         'accent': '#eeba59',
        },
        fontFamily: {
-        heading: 'Bebas Neue',
+        heading: 'Oswald',
         body: 'Heebo',
       },
        fontSize: {

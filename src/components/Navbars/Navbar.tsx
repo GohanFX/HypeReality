@@ -11,30 +11,35 @@ import { getIronSessionData } from "@/utils/session";
 import { headers } from "next/headers";
 import { NormalNavbar } from "./NormalNavbar";
 import { IronSessionData } from "iron-session";
+import { useSession } from "../Session/SessionContext";
 
 
 
-const Navbar = ({user}: {user: User}) => {
+const Navbar = () => {
   const path = usePathname();
+  const {getIsLoggedIn, user} = useSession();
    switch (path) {
-      case "/login":
-        return <LoginNavbar />;       
+      case "/login"  :
+        return <LoginNavbar />;     
+      case "/register":
+        return <LoginNavbar />;  
       default:
-        return <NormalNavbar user={user} />;
+        return <NormalNavbar />;
     };
   ;
 };
 
 
 const LoginNavbar = () => {
-  return <div className="w-full flex py-2 justify-center items-center navbar">
+  return<Link href={"/"}>
+   <div className="w-full font-heading  flex cursor-pointer py-2 justify-center items-center navbar">
       <div className=" object-fit">
         <Image src={Logo} alt="asd" className="w-fit h-fit" />
       </div>
-      <h2 className="text-2xl font-bold text-text">
+      <h2 className="text-2xl font-bold font-heading text-text">
         <span className="text-primary">Hype</span>Reality
       </h2>
-    </div>
+    </div></Link>
 }
 
 export default Navbar;

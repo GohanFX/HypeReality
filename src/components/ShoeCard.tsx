@@ -25,7 +25,7 @@ const ShoeCard = (card: ShoeFrame) => {
         <div className="relative text-text top-3 right-3 "><MdInfoOutline /></div>
       </div>
       <div className="w-full p-1 flex space-x-2">
-        <button className="w-1/2 bg-transparent transition-colors hover:bg-loginButton duration-300 hover:text-white border h-8 border-secondary text-sm font-light rounded-sm text-black">Contact</button>
+        <button className="w-1/2 bg-transparent transition-colors hover:bg-loginButton duration-300 hover:text-primary border h-8 border-secondary text-sm font-light rounded-sm text-black">Contact</button>
         <button className="w-1/2 bg-primary border h-8  text-sm rounded-md text-white font-ligh">View</button>
       </div>
     </div>

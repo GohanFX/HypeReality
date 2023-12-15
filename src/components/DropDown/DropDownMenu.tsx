@@ -22,12 +22,12 @@ const DropDownMenu: React.FC<DropDownMenuProps> = ({children, title, id, handler
     };
 
     return (
-        <div onClick={() => handler}  className="w-full z-20 text-secondary transition-colors">
-            <button id={id}  className={`dropdown-toggle ${layout.getState(id)? "bg-background h-8 w-32 mx-auto rounded-sm" : "bg-transparent mx-auto w-32 h-8"}`} onClick={toggleMenu}>
+        <div onClick={() => handler}  className="w-full text-lg z-20 text-secondary transition-colors">
+            <button id={id}  className={`dropdown-toggle  font-normal cursor-pointer hover:text-primary transition-colors duration-500 ${layout.getState(id)? "bg-background h-8 w-32 mx-auto rounded-sm text-accent" : "bg-transparent mx-auto w-32 h-8"}`} onClick={toggleMenu}>
                 {title}
             </button>
             {layout.getState(id) && (
-                <ul className="dropdown-menu space-y-1 absolute right-0 w-1/3 md:w-1/6 mt-2 bg-gradient-to-b drop-shadow-md from-slate-200 to-100% to-gray-200  rounded-lg">
+                <ul className="dropdown-menu space-y-1 absolute right-4 w-1/3 md:w-1/6 mt-2 bg-gradient-to-b drop-shadow-md from-slate-200 to-100% to-gray-200  rounded-lg">
                     {children}
                 </ul>
             )}

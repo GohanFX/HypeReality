@@ -9,17 +9,20 @@ datasource db {
   provider = "mysql"
   url      = env("DATABASE_URL")
 }
+
 model User {
     id Int @id @default(autoincrement())
     email String @unique
+    description String? @default("")
     username String
     password String
     shoes Shoe[]
 }
+
 model Shoe {
   id Int @id @default(autoincrement())
   title String
-  description String
+  description String @default("")
   condition ShoeCondition
   size Float
   price Float
@@ -28,6 +31,7 @@ model Shoe {
   seller User @relation(fields: [sellerId], references: [id])
   sellerId Int
 }
+
 enum ShoeCondition {
   NEW
   OPENBOX

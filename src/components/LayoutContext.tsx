@@ -8,7 +8,6 @@ interface LayoutContextProps {
     Menus: LayoutContextState;
     handleClick: (menu: string) => void;
     getState: (menu: string) => boolean;
-
 };
 
 const Menus: LayoutContextState  = {

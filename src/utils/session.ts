@@ -12,3 +12,9 @@ export const getSession = (req: Request, res: Response) => {
 export async function getIronSessionData() {
     return await getIronSession<IronSessionData>(cookies(), IronOptions);
   }
+
+export const getServerSession = async () => {
+    const session = await getIronSessionData();
+    return session;
+};
+  

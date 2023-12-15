@@ -3,7 +3,7 @@ import React, { useReducer, useState } from "react";
 import Link from "next/link";
 import axios from "axios";
 import { redirect, useRouter } from "next/navigation";
-import { useSession } from "@/components/SessionContext";
+import { useSession } from "@/components/Session/SessionContext";
 
 const LoginForm: React.FC = () => {
   const [username, setUsername] = useState("");
@@ -40,7 +40,7 @@ const LoginForm: React.FC = () => {
               type="text"
               placeholder="E-mail address"
               onChange={(e) => setEmail(e.target.value)}
-              className="border-b-2 w-3/4 md:w-3/5 placeholder:text-secondary placeholder:opacity-75 placeholder:uppercase  border-text bg-transparent text-[30] text-secondary font-normal outline-none"
+              className="focus:bg-transparent border-b-2 w-3/4 md:w-3/5 placeholder:text-secondary placeholder:opacity-75 placeholder:uppercase  border-text bg-transparent text-[30] text-secondary font-normal outline-none"
             />
           </div>
           <div>
@@ -48,7 +48,7 @@ const LoginForm: React.FC = () => {
               type="text"
               placeholder="Username"
               onChange={(e) => setUsername(e.target.value)}
-              className="border-b-2 w-3/4 md:w-3/5 border-text bg-transparent placeholder:text-secondary placeholder:opacity-75 placeholder:uppercase text-[30] text-secondary font-normal outline-none"
+              className="focus:bg-transparent border-b-2 w-3/4 md:w-3/5 border-text bg-transparent placeholder:text-secondary placeholder:opacity-75 placeholder:uppercase text-[30] text-secondary font-normal outline-none"
             />
           </div>
           <div>
@@ -56,7 +56,7 @@ const LoginForm: React.FC = () => {
               type="password"
               placeholder="Password"
               onChange={(e) => setPassword(e.target.value)}
-              className="border-b-2 w-3/4 md:w-3/5 border-text bg-transparent placeholder:text-secondary placeholder:opacity-75 placeholder:uppercase text-[30] text-secondary font-normal outline-none"
+              className="focus:bg-transparent border-b-2 w-3/4 md:w-3/5 border-text bg-transparent placeholder:text-secondary placeholder:opacity-75 placeholder:uppercase text-[30] text-secondary font-normal outline-none"
             />
           </div>
         </div>
@@ -64,7 +64,7 @@ const LoginForm: React.FC = () => {
           <div className=" w-3/4 md:w-3/5 flex">
             <div className="w-1/2 text-left text-sm uppercase text-secondary">
               <p>Do you have an account?</p>
-              <Link href={"/register"} className="font-semibold text-primary">
+              <Link href={"/login"} className="font-semibold text-primary">
                 Login
               </Link>
             </div>

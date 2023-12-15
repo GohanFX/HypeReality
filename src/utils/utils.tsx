@@ -4,9 +4,9 @@ import Logo from "./images/Logo.png";
 import AirForce from "./images/af1.png";
 import Yeezy from "./images/yeezy.png";
 import Jordan from "./images/jordair.png";
-
+import { MdMessage } from "react-icons/md";
+import { NotificationProps } from "@/components/Notification/Notification";
 export const IronOptions = {
-
   password: "AbwnDoPET4XNW7Tyx8wtXmgdtHEGgtCG",
   cookieName: "HypeSession",
   cookieOptions: {
@@ -23,10 +23,83 @@ type RandomizedShoe = {
   id: number;
   image: StaticImageData;
   description: string;
+  price: number;
 };
 
 
+export enum NotificationType {
+  Message,
+  Notification,
+  Error,
+}
 
+
+export const Notifications: NotificationProps[] = [
+  {
+    title: "New Message",
+    message: "You have a new message from GohanFY",
+    image: <MdMessage />,
+    id: 0,
+    type: NotificationType.Message,
+    color: "red",
+  },
+  {
+    title: "New Message",
+    message: "You have a new message from GohanFY",
+    image: <MdMessage />,
+    id: 1,
+    type: NotificationType.Notification,
+    color: "red",
+  },
+  {
+    title: "New Message",
+    message: "You have a new message from GohanFY",
+    image: <MdMessage />,
+    id: 2,
+    type: NotificationType.Error,
+    color: "red",
+  },
+  {
+    title: "New Message",
+    message: "You have a new message from GohanFY",
+    image: <MdMessage />,
+    id: 3,
+    type: NotificationType.Message,
+    color: "red",
+  },
+  {
+    title: "New Message",
+    message: "You have a new message from GohanFY",
+    image: <MdMessage />,
+    id: 4,
+    type: NotificationType.Message,
+    color: "red",
+  },
+  {
+    title: "New Message",
+    message: "You have a new message from GohanFY",
+    image: <MdMessage />,
+    id: 5,
+    type: NotificationType.Message,
+
+  },
+  {
+    title: "New Message",
+    message: "You have a new message from GohanFY",
+    image: <MdMessage />,
+    type: NotificationType.Message,
+    id: 6,
+
+  },
+  {
+    title: "New Message",
+    message: "You have a new message from GohanFY",
+    image: <MdMessage />,
+    id: 7,
+    type: NotificationType.Message,
+
+  },
+];
 
 
 
@@ -74,6 +147,7 @@ export const Shoes: RandomizedShoe[] = [
   {
     title: "Yeezy 350 Boost",
     id: 0,
+    price: 420,
     image: Yeezy,
     description:
       "A Kanye West neve fémjelezte YEEZY sorozat legkedveltebbmodellje egyértelműen a Yeezy Boost 350 v2. Sikere töretlen az első Beluga megjelenése óta: több tucat színváltozata látott már napvilágot: vannak a korábbi, SPLY350 feliratos és az átlátszó csíkos, a pull-tabes és a pull tab nélküli változatok, de ami mindegyikben megegyezik: a kényelmes Boost talp és a rugalmas Primeknit felsőrész.",
@@ -82,11 +156,13 @@ export const Shoes: RandomizedShoe[] = [
     title: "Yeezy 350 Boost",
     id: 1,
     image: Yeezy,
+    price: 350,
     description:
       "A Kanye West neve fémjelezte YEEZY sorozat legkedveltebbmodellje egyértelműen a Yeezy Boost 350 v2. Sikere töretlen az első Beluga megjelenése óta: több tucat színváltozata látott már napvilágot: vannak a korábbi, SPLY350 feliratos és az átlátszó csíkos, a pull-tabes és a pull tab nélküli változatok, de ami mindegyikben megegyezik: a kényelmes Boost talp és a rugalmas Primeknit felsőrész.",
   },
   {
     title: "Nike Jordan 1",
+    price: 230,
     id: 4,
     image: Jordan,
     description:
@@ -94,6 +170,7 @@ export const Shoes: RandomizedShoe[] = [
   },
   {
     title: "Yeezy 350 Boost",
+    price: 220,
     id: 3,
     image: Yeezy,
     description:
@@ -102,6 +179,7 @@ export const Shoes: RandomizedShoe[] = [
   {
     title: "Nike AirForce 1",
     id: 2,
+    price: 150,
     image: AirForce,
     description:
       "A Kanye West neve fémjelezte YEEZY sorozat legkedveltebbmodellje egyértelműen a Yeezy Boost 350 v2. Sikere töretlen az első Beluga megjelenése óta: több tucat színváltozata látott már napvilágot: vannak a korábbi, SPLY350 feliratos és az átlátszó csíkos, a pull-tabes és a pull tab nélküli változatok, de ami mindegyikben megegyezik: a kényelmes Boost talp és a rugalmas Primeknit felsőrész.",
