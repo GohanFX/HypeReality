@@ -6,7 +6,7 @@ import {MdInfoOutline} from 'react-icons/md'
 import {AiFillHeart} from 'react-icons/ai'
 const ShoeCard = (card: ShoeFrame) => {
   return (
-    <div className="h-[250px] w-48 md:w-52 lg:w-56 rounded-md bg-[#e7ecf3]">
+    <div className="h-[250px] font-heading w-48 md:w-52 lg:w-56 transition rounded-md  bg-[#e7ecf3]">
       <div className="w-full container  justify-between h-32 flex items-center place-content-center  mx-auto">
         <div className="w-full ">
           
@@ -25,7 +25,7 @@ const ShoeCard = (card: ShoeFrame) => {
         <div className="relative text-text top-3 right-3 "><MdInfoOutline /></div>
       </div>
       <div className="w-full p-1 flex space-x-2">
-        <button className="w-1/2 bg-transparent transition-colors hover:bg-loginButton duration-300 hover:text-primary border h-8 border-secondary text-sm font-light rounded-sm text-black">Contact</button>
+        <button className="w-1/2 bg-transparent transition-colors hover:bg-loginButton duration-300 hover:text-primary border h-8 border-secondary text-sm font-medium rounded-sm text-black">Contact</button>
         <button className="w-1/2 bg-primary border h-8  text-sm rounded-md text-white font-ligh">View</button>
       </div>
     </div>

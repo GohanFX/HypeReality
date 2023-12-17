@@ -1,15 +1,19 @@
 "use client";
-import React, { useReducer, useState } from "react";
+import React, { useState } from "react";
 import Link from "next/link";
 import axios from "axios";
 import { redirect, useRouter } from "next/navigation";
 import { useSession } from "@/components/Session/SessionContext";
+import { useNotifications } from "@/utils/useNotifications";
+import { NotificationType } from "@/utils/utils";
+import { MdDone } from "react-icons/md";
 
 const LoginForm: React.FC = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const router = useRouter();
-  const {getIsLoggedIn, setIsLoggedIn} = useSession();
+  const { addNotification } = useNotifications();
+  const {setIsLoggedIn} = useSession();
   const handleSubmit = async () => {
     console.log(username, password);
     if (username && password) {
@@ -21,6 +25,14 @@ const LoginForm: React.FC = () => {
         if (authReq.status === 200) {
           router.push("/");
           setIsLoggedIn(true);
+          router.refresh();
+          addNotification({
+            title: "Login",
+            message: "Sikeresen bejelentkeztél!",
+            type: NotificationType.Message,
+            image: <MdDone />,
+            id: 0,
+          });
         }
       } catch (err) {
         console.log(err);
@@ -31,14 +43,14 @@ const LoginForm: React.FC = () => {
   return (
     <div className="w-full h-screen flex items-center place-content-center">
       <div className="h-3/4 uppercase text-center space-y-10 text-2xl md:text-3xl font-extrabold text-secondary md:w-2/6 w-1/2 p-2">
-        <h1 className="-ml-2">Bejelentkezés</h1>
+        <h1 className="text-2xl md:text-4xl">Bejelentkezés</h1>
         <div className="text-lg  w-full space-y-8">
           <div>
             <input
               type="text"
               placeholder="Felhasználó név"
               onChange={(e) => setUsername(e.target.value)}
-              className="border-b-2 w-3/4 md:w-3/5 placeholder:text-secondary placeholder:opacity-75 placeholder:uppercase  border-text bg-transparent text-[30] text-secondary font-normal outline-none"
+              className="border-b-2 w-full md:w-3/5 placeholder:text-secondary placeholder:opacity-75 placeholder:uppercase  border-text bg-transparent text-[30] text-secondary font-normal outline-none"
             />
           </div>
           <div>
@@ -46,12 +58,12 @@ const LoginForm: React.FC = () => {
               type="password"
               placeholder="Jelszó"
               onChange={(e) => setPassword(e.target.value)}
-              className="border-b-2 w-3/4 md:w-3/5 border-text bg-transparent placeholder:text-secondary placeholder:opacity-75 placeholder:uppercase text-[30] text-secondary font-normal outline-none"
+              className="border-b-2 w-full md:w-3/5 border-text bg-transparent placeholder:text-secondary placeholder:opacity-75 placeholder:uppercase text-[30] text-secondary font-normal outline-none"
             />
           </div>
         </div>
         <div className="w-full font-light flex place-content-center">
-          <div className=" w-3/4 md:w-3/5 flex text-lg">
+          <div className=" w-full md:w-3/5 shrink flex text-lg">
             <div className="w-1/2 text-left uppercase text-secondary">
               <p>Not registered yet?</p>
               <Link href={"/register"} className="font-semibold text-primary">
@@ -69,10 +81,10 @@ const LoginForm: React.FC = () => {
         </div>
 
         <button
-          className="w-3/5 text-primary text-lg bg-secondary rounded-sm h-12"
+          className="w-full md:w-3/5  text-primary text-lg bg-secondary rounded-sm h-12"
           onClick={handleSubmit}
         >
-          {" "}
+    
           Login
         </button>
       </div>

@@ -11,7 +11,7 @@ interface RowParameters {
 const ShoeRow = ({title, filter}: RowParameters) => {
   const shoes = ShoeFrames;
   return (
-    <div id="row" className="flex  h-100 w-full text-comms place-content-center ">
+    <div id="row" className="flex flex-wrap  h-100 w-full text-comms place-content-center ">
       <div className="w-5/6">
         <div className=" w-full  font-semibold space-y-2">
           <div className="flex w-full justify-between">

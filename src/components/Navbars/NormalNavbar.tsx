@@ -1,24 +1,25 @@
-"use client"
-import { getIronSessionData } from "@/utils/session";
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
 import Logo from "../../utils/images/Logo.png";
 import { NavbarItems } from "@/utils/utils";
-import { IronSessionData } from "iron-session";
+
 import { useSession } from "../Session/SessionContext";
-import DropDownMenu from "../DropDown/DropDownMenu";
-import DropDownItem from "../DropDown/DropDownItem";
-import { useLayout } from "../LayoutContext";
+
 import { ProfileDropDown } from "../ProfileDropDown";
-import { User } from "@/utils";
+import { useLayout } from "@/utils/useLayout";
+import { useEffect } from "react";
+
 export const NormalNavbar = async () => {
-  const {user, getIsLoggedIn} = useSession();
+
+  const { user, isLoggedIn } = useSession();
   return (
     <div className="w-full flex py-2 font-heading justify-between items-center navbar">
       <div className="w-1/4 h-2/3 flex p-2 space-x-2">
         <Link href={"/"} className="flex">
           <div className=" object-contain">
-            <Image src={Logo} alt="asd"  />
+            <Image src={Logo} alt="asd" />
           </div>
           <h2 className="text-secondary m-auto uppercase  text-2xl font-bold">
             <span className="text-primary">Hype</span> Reality
@@ -32,7 +33,7 @@ export const NormalNavbar = async () => {
           className="text-accent placeholder:text-xl text-lg md:visible invisible w-3/4 outline-0 transition-colors bg-transparent duration-750 border-b  focus:border-secondary"
         />
       </div>
-      <div className="w-1/6 flex m-auto   text-secondary ">
+      <div className="w-1/6 shrink flex m-auto   text-secondary ">
         <ul className="list-none space-x-2 md:flex hidden justify-center m-auto items-center lg:visible invisible flex-1">
           {NavbarItems.map((item, index) => {
             return (
@@ -46,11 +47,9 @@ export const NormalNavbar = async () => {
           })}
         </ul>
 
-        <div className="flex  mx-auto ml-2 space-x-2 ">
-          {getIsLoggedIn() ? (
-            <>
+        <div className="shrink  mx-auto ml-2 space-x-2">
+          {isLoggedIn ? (
               <ProfileDropDown username={`${user.username}`} />
-            </>
           ) : (
             <>
               <Link href={"/login"}>
