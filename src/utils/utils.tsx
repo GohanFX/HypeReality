@@ -38,65 +38,64 @@ export const Notifications: NotificationProps[] = [
   {
     title: "New Message",
     message: "You have a new message from GohanFY",
-    image: <MdMessage />,
     id: 0,
-    type: NotificationType.Message,
+    notificationType: NotificationType.Message,
     color: "red",
   },
   {
     title: "New Message",
     message: "You have a new message from GohanFY",
-    image: <MdMessage />,
+
     id: 1,
-    type: NotificationType.Notification,
+    notificationType: NotificationType.Notification,
     color: "red",
   },
   {
     title: "New Message",
     message: "You have a new message from GohanFY",
-    image: <MdMessage />,
+    
     id: 2,
-    type: NotificationType.Error,
+    notificationType: NotificationType.Error,
     color: "red",
   },
   {
     title: "New Message",
     message: "You have a new message from GohanFY",
-    image: <MdMessage />,
+    
     id: 3,
-    type: NotificationType.Message,
+    notificationType: NotificationType.Message,
     color: "red",
   },
   {
     title: "New Message",
     message: "You have a new message from GohanFY",
-    image: <MdMessage />,
+    
     id: 4,
-    type: NotificationType.Message,
+    notificationType: NotificationType.Message,
     color: "red",
   },
   {
     title: "New Message",
     message: "You have a new message from GohanFY",
-    image: <MdMessage />,
+    
     id: 5,
-    type: NotificationType.Message,
+    notificationType: NotificationType.Message,
 
   },
   {
     title: "New Message",
     message: "You have a new message from GohanFY",
-    image: <MdMessage />,
-    type: NotificationType.Message,
+    
+    notificationType: NotificationType.Message,
     id: 6,
 
   },
   {
     title: "New Message",
     message: "You have a new message from GohanFY",
-    image: <MdMessage />,
+    
     id: 7,
-    type: NotificationType.Message,
+    notificationType: NotificationType.Message,
 
   },
 ];

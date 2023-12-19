@@ -1,31 +1,59 @@
 "use client"
 import { useEffect } from "react";
 
-export interface LayoutMenus {
-    [key: string]: boolean
+export type LayoutMenus = {
+    [key: string]: boolean;
 };
 
-const LayoutMenus: LayoutMenus = {
+
+const LayoutMenu: Record<string, boolean> = {
     "profile": false,
     "settings": false,
     "notifications": false,
 };
 
 export const useLayout = () => {
+    
+
+    if(typeof window !== "undefined"){
+        if(localStorage.getItem("layoutMenu") === null){
+            localStorage.setItem("layoutMenu", JSON.stringify(LayoutMenu));
+        }
+        useEffect(() => {
+            const layoutMenuString = localStorage.getItem("layoutMenu");
+            if (layoutMenuString) {
+                const layoutMenu = JSON.parse(layoutMenuString);
+                Object.keys(layoutMenu).forEach((menu) => {
+                    LayoutMenu[menu] = layoutMenu[menu];
+                });
+            }
+        }, [localStorage.getItem("layoutMenu")]);
+    }
     const toggleMenu = (menu: string) => {
-        LayoutMenus[menu] = !LayoutMenus[menu];
+        LayoutMenu[menu] = !LayoutMenu[menu];
+        localStorage.setItem("layoutMenu", JSON.stringify(LayoutMenu));
     };
 
-    useEffect(() => {
-        console.log(LayoutMenus)
-    }, [LayoutMenus]);
+    const getMenuNames = () => {
+        return Object.keys(LayoutMenu);
+    };
+
+    const closeMenus = () => {
+        Object.keys(LayoutMenu).forEach((menu) => {
+            LayoutMenu[menu] = false;
+        });
+        localStorage.setItem("layoutMenu", JSON.stringify(LayoutMenu));
+    };
+
 
     const getState = (menu: string) => {
-        return LayoutMenus[menu];
+        return LayoutMenu[menu];
     };
 
     return {
-        LayoutMenus,
+        LayoutMenu,
+        getMenuNames,
+        closeMenus,
         toggleMenu,
         getState
     };

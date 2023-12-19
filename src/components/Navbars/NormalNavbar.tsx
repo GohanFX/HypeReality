@@ -33,7 +33,7 @@ export const NormalNavbar = async () => {
           className="text-accent placeholder:text-xl text-lg md:visible invisible w-3/4 outline-0 transition-colors bg-transparent duration-750 border-b  focus:border-secondary"
         />
       </div>
-      <div className="w-1/6 shrink flex m-auto   text-secondary ">
+      <div className="w-1/4 shrink flex m-auto   text-secondary ">
         <ul className="list-none space-x-2 md:flex hidden justify-center m-auto items-center lg:visible invisible flex-1">
           {NavbarItems.map((item, index) => {
             return (
@@ -47,13 +47,13 @@ export const NormalNavbar = async () => {
           })}
         </ul>
 
-        <div className="shrink  mx-auto ml-2 space-x-2">
+        <div className="shrink  mx-auto ml-2 ">
           {isLoggedIn ? (
               <ProfileDropDown username={`${user.username}`} />
           ) : (
-            <>
+            <div className="">
               <Link href={"/login"}>
-                <button className="border rounded-sm border-secondary w-16 p-1 text-md">
+                <button className="border mb-2 rounded-sm border-secondary w-16 p-1 text-md">
                   Login
                 </button>
               </Link>
@@ -62,7 +62,7 @@ export const NormalNavbar = async () => {
                   Register
                 </button>
               </Link>
-            </>
+            </div>
           )}
         </div>
       </div>

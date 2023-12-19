@@ -1,21 +1,19 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import axios from "axios";
-import { redirect, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { useSession } from "@/components/Session/SessionContext";
 import { useNotifications } from "@/utils/useNotifications";
 import { NotificationType } from "@/utils/utils";
-import { MdDone } from "react-icons/md";
 
 const LoginForm: React.FC = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const router = useRouter();
-  const { addNotification } = useNotifications();
-  const {setIsLoggedIn} = useSession();
+  const { addNotification, getNotifications } = useNotifications();
+  const { setIsLoggedIn } = useSession();
   const handleSubmit = async () => {
-    console.log(username, password);
     if (username && password) {
       try {
         const authReq = await axios.post("/api/v1/auth/login", {
@@ -24,14 +22,12 @@ const LoginForm: React.FC = () => {
         });
         if (authReq.status === 200) {
           router.push("/");
-          setIsLoggedIn(true);
           router.refresh();
           addNotification({
             title: "Login",
             message: "Sikeresen bejelentkeztél!",
-            type: NotificationType.Message,
-            image: <MdDone />,
-            id: 0,
+            notificationType: NotificationType.Message,
+            id: getNotifications().length + 1,
           });
         }
       } catch (err) {
@@ -39,6 +35,12 @@ const LoginForm: React.FC = () => {
       }
     }
   };
+
+  useEffect(() => {
+    if (localStorage.getItem("notifications") === null) {
+      localStorage.setItem("notifications", JSON.stringify([]));
+    }
+  }, [localStorage.getItem("notifications")]);
 
   return (
     <div className="w-full h-screen flex items-center place-content-center">

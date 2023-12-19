@@ -1,6 +1,6 @@
 "use client";
 import { useLayout } from "@/utils/useLayout";
-import { ReactNode, useState } from "react";
+import { ReactNode, useEffect, useState } from "react";
 
 interface DropDownMenuProps {
   children: ReactNode;
@@ -16,7 +16,13 @@ const DropDownMenu: React.FC<DropDownMenuProps> = ({
   id,
   handler,
 }: DropDownMenuProps) => {
-  const [isOpened, setIsOpened] = useState<boolean>(false);
+  const {getState} = useLayout();
+  const [isOpened, setIsOpened] = useState<boolean>(getState(id));
+
+  useEffect(() => {
+    setIsOpened(getState(id));
+  }, [getState(id)]);
+
 
   return (
     <div

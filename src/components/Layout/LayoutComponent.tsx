@@ -5,12 +5,14 @@ import { NotificationBar } from "@/components/Notification/NotificationBar";
 export const LayoutComponent = ({
   children,
   menuStates,
+  clickEvent,
 }: {
   children: React.ReactNode;
   menuStates: LayoutMenus;
+  clickEvent: React.MouseEventHandler<HTMLElement>;
 }) => {
   return (
-    <>
+    <div onClick={clickEvent}>
       <Navbar />
       {children}
       <div className=" relative bottom-0 text-center text-comms h-screen">
@@ -19,6 +21,6 @@ export const LayoutComponent = ({
         </h3>
       </div>
       <NotificationBar state={menuStates["notifications"]} />
-    </>
+    </div>
   );
 };

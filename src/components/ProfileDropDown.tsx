@@ -8,12 +8,13 @@ import {
 } from "react-icons/ai";
 import { MdNotifications, MdSettingsAccessibility } from "react-icons/md";
 import { useSession } from "./Session/SessionContext";
-import { useRouter } from "next/navigation";
-import axios from "axios";
+import { useNotifications } from "@/utils/useNotifications";
+import { NotificationType } from "@/utils/utils";
 
 export const ProfileDropDown = ({ username }: { username: string }) => {
-  const router = useRouter();
   const { user, isLoggedIn, setIsLoggedIn, logout } = useSession();
+  const notificationHandler = useNotifications();
+  
   return (
     <DropDownMenu id="profile" title={`Hello, ${username? username : ''}`}>
       <DropDownItem
@@ -39,6 +40,13 @@ export const ProfileDropDown = ({ username }: { username: string }) => {
         href="/"
         handler={async () => {
           await logout();
+          notificationHandler.addNotification({
+            title: "Logout",
+            message: "Sikeresen kijelentkeztél!",
+            notificationType: NotificationType.Message,
+            id: notificationHandler.getLastId() + 1,
+          });
+          
         }}
         icon={<AiOutlineLogout className="text-2xl" />}
       >
