@@ -4,7 +4,7 @@ import { type } from "os";
 
 import { FaTrash } from "react-icons/fa";
 import { MdMail, MdMessage, MdStop } from "react-icons/md";
-
+import { animate } from "motion";
 export type NotificationProps = {
   title: string;
   message: string;
@@ -26,12 +26,13 @@ export const Notification = ({
   title,
   message,
   id,
+
   notificationType,
   trashEvent
 }: NotificationProps) => {
-  console.log()
+  
   return (
-    <div className="bg-primary w-[97%]  self-stretch flex items-stretch justify-between gap-5 px-2 rounded-xl">
+    <div id={'notification-' + id} className="bg-primary w-[97%]  self-stretch flex items-stretch justify-between gap-5 px-2 rounded-xl">
       <div className="flex justify-between gap-1.5 items-start">
         <div className="text-2xl drop-shadow-md text-secondary h-full flex items-center">
           {typeIcons[NotificationType[notificationType]]}

@@ -2,6 +2,7 @@ export type User = {
     id: number;
     username: string
     email: string   
+    avatar: string
     description: string
     password: string
     shoes: Array<shoe>

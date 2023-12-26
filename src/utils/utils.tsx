@@ -101,6 +101,11 @@ export const Notifications: NotificationProps[] = [
 ];
 
 
+export function calculateMegabytes(bytes: number) {
+  return bytes / 1000000;
+}
+
+
 
 
 

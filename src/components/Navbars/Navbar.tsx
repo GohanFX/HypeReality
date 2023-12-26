@@ -7,15 +7,14 @@ import { it } from "node:test";
 import { usePathname, useRouter } from "next/navigation";
 import Link from "next/link";
 import { User } from "@/utils";
-import { getIronSessionData } from "@/utils/session";
+import { useSession } from "@/utils/session";
 import { headers } from "next/headers";
 import { NormalNavbar } from "./NormalNavbar";
 import { IronSessionData } from "iron-session";
-import { useSession } from "../Session/SessionContext";
+
 
 const Navbar = () => {
   const path = usePathname();
-  const { isLoggedIn, user } = useSession();
   switch (path) {
     case "/login":
       return <LoginNavbar />;

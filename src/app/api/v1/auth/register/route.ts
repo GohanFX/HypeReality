@@ -2,7 +2,7 @@ import { PrismaClient } from "@prisma/client";
 import { RegisterRequest } from "@/utils";
 import { data } from "autoprefixer";
 import bcrypt from "bcryptjs"
-
+import fs from "fs";
 const prisma = new PrismaClient();
 
 
@@ -16,7 +16,7 @@ export async function POST(req: Request) {
     where: {
       email: email
     }
-  });
+  }); 
   if(user) {
     return new Response(JSON.stringify({message: "User already exists"}), {status: 401});
   }
@@ -26,8 +26,7 @@ export async function POST(req: Request) {
     data: {
       description: desc,
       username: username,
-      email: email,
-      
+      email: email,      
       password: hashedPassword
     }
   });

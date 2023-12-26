@@ -14,11 +14,11 @@ const ShoeRow = ({title, filter}: RowParameters) => {
     <div id="row" className="flex flex-wrap  h-100 w-full text-comms place-content-center ">
       <div className="w-5/6">
         <div className=" w-full  font-semibold space-y-2">
-          <div className="flex w-full justify-between">
+          <div className="flex text-2xl w-full justify-between">
             <h2 className="text-text">{title}</h2>
             <h2 className="flex transition  duration-700  hover:translate-x-2  cursor-pointer">
               <span className=" text-primary">More</span>{" "}
-              <span className="pt-1 text-text">
+              <span className="pt-2 text-text">
                 <AiOutlineArrowRight />
               </span>
             </h2>

@@ -8,6 +8,7 @@ import {
 } from "react-icons/md";
 import { Notification, NotificationProps } from "./Notification";
 import { useNotifications } from "@/utils/useNotifications";
+import {animate} from "motion"
 export const NotificationBar = ({ state }: { state: boolean }) => {
   
     const notificationHandler = useNotifications();
@@ -15,6 +16,16 @@ export const NotificationBar = ({ state }: { state: boolean }) => {
     const [update, setUpdate] = useState<boolean>(false);
     const [showState, setShowState] = useState<boolean>(state);
 
+    const handleDeleteAnimation = async (id: Number) => {
+      await animate(`#notification-${id}`, {
+        opacity: 0,
+        display: 'none',
+      }, { duration: 0.5}
+      ).finished;
+      await animate(`#notification-${id}`, {
+        opacity: 1,
+      }, { duration: 0.5, }).finished;
+    }
 
     const handleClick = () => {
       setShowState(!showState);
@@ -43,12 +54,13 @@ export const NotificationBar = ({ state }: { state: boolean }) => {
                   return (
                     notification && (
                       <Notification
-                        key={index}
+                        key={notification.id}
                         notificationType={notification.notificationType}
                         id={notification.id}
                         title={notification.title}
                         message={notification.message}
-                        trashEvent={(e: React.MouseEvent<HTMLButtonElement>) => {
+                        trashEvent={async (e: React.MouseEvent<HTMLButtonElement>) => {
+                          await handleDeleteAnimation(notification.id);
                           notificationHandler.removeNotification(notification.id);
                           setUpdate(!update);
                         }}

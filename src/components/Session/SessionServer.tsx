@@ -1,11 +1,11 @@
-import { getServerSession } from "@/utils/session";
 import { SessionProvider } from "./SessionContext";
+import { useSession } from "../../utils/session";
 export const SessionServer = async ({children}: {children: React.ReactNode}) => {
-   const {user} = await getServerSession();
-   if(!user) {
+   const session = useSession();
+   if(!session.isLoggedIn()) {
          return <>{children}</>
    }
     return (
-       <SessionProvider user={user!}>{children}</SessionProvider>
+       <SessionProvider user={((await session.getServerSession()).user!)}>{children}</SessionProvider>
     );
  };

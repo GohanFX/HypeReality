@@ -7,6 +7,7 @@ import { useRouter } from "next/navigation";
 import { useNotifications } from "@/utils/useNotifications";
 import { NotificationType } from "@/utils/utils";
 export default function ModifyPage({user}: {user: User}) {
+    const [characters, setScharecters] = useState(user.description.length);
 
     const [description, setDescription] = useState(user.description);
     const router = useRouter();
@@ -16,6 +17,7 @@ export default function ModifyPage({user}: {user: User}) {
         if(modifieRequest.status === 200) {
             console.log("Sikeresen módosítottad a leírást!");
             router.push("/profile");
+            router.refresh();
             addNotification({
                 title: "Description",
                 message: "Sikeres módosítás!",
@@ -30,6 +32,11 @@ export default function ModifyPage({user}: {user: User}) {
                 id: getLastId() + 1
             });
         }
+    };
+
+    const handleTypingIntoDescription = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+        setDescription(e.target.value);
+        setScharecters(e.target.value.length);
     };
 
     return (
@@ -48,7 +55,8 @@ export default function ModifyPage({user}: {user: User}) {
               </div>
             </div>
             <div className="text-text mb-2 h-auto text-opacity-60 text-xl font-light leading-[30px] self-stretch mt-5  max-md:text-4xl max-md:leading-[53px]">
-              <textarea  className="w-full bg-transparent focus:bg-transparent border-b overflow-y-hidden border-b-secondary outline-none" onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => setDescription(e.target.value)} defaultValue={user.description}/>
+              <textarea maxLength={1200}  className="w-3/4 bg-transparent resize-none focus:bg-transparent border-b overflow-y-hidden border-b-secondary outline-none" onChange={handleTypingIntoDescription} defaultValue={user.description}/>
+              <h3 className="text-sm -mt-2">Legfeljebb 1200 karakter {'(Jelenleg: ' + characters + ')'}</h3>
             </div>
             
                 <button className="w-1/4 bg-background border font-semibold border-secondary text-secondary h-10 rounded-md" onClick={handleDescriptionChange}>SAVE</button>

@@ -4,6 +4,7 @@ import { PrismaClient } from "@prisma/client";
 import { IronSessionData, getIronSession } from "iron-session";
 import { IronOptions } from "@/utils/utils";
 import { cookies } from 'next/headers';
+import { useSession } from "@/utils/session";
 const prisma = new PrismaClient();
 
 interface descriptionRequest {
@@ -12,26 +13,32 @@ interface descriptionRequest {
 
 export async function POST(req: Request) {
     const data: descriptionRequest = await req.json();
-  const session = await getIronSession<IronSessionData>(cookies(), IronOptions);
+    const session = useSession();
+    const {user, save} = await session.getServerSession();
 
+    if(data.description.length > 320) {
+        return new Response("Description too long", {
+            status: 400,
+        });
+    }
     if(!session) {
         return new Response("No session", {
         status: 401,
         });
     }
 
-    if(!(session.user)) {
+    if(!user) {
         return new Response("No user in session", {
             status: 402,
         });
     }
-    const user = await prisma.user.findUnique({
+    const userData = await prisma.user.findUnique({
         where: {
-            id: session.user.id
+            id: user.id
         }
     });
 
-    session.user.description = data.description;
+    user.description = data.description;
     if(!user) {
         return new Response("No user found", {
             status: 403,
@@ -39,13 +46,13 @@ export async function POST(req: Request) {
     }
     await prisma.user.update({
         where: {
-            id: session.user.id
+            id: user.id
         },
         data: {
             description: data.description
         }
     });
-    await session.save();
+    await save();
   return new Response("Description modified", {
     status: 200,
   });

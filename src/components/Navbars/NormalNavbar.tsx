@@ -13,7 +13,7 @@ import { useEffect } from "react";
 
 export const NormalNavbar = async () => {
 
-  const { user, isLoggedIn } = useSession();
+const { user, isLoggedIn } = useSession();
   return (
     <div className="w-full flex py-2 font-heading justify-between items-center navbar">
       <div className="w-1/4 h-2/3 flex p-2 space-x-2">
@@ -47,13 +47,13 @@ export const NormalNavbar = async () => {
           })}
         </ul>
 
-        <div className="shrink  mx-auto ml-2 ">
+        <div className="shrink   mx-auto ml-2 ">
           {isLoggedIn ? (
               <ProfileDropDown username={`${user.username}`} />
           ) : (
             <div className="">
               <Link href={"/login"}>
-                <button className="border mb-2 rounded-sm border-secondary w-16 p-1 text-md">
+                <button className="border mb-2 rounded-sm mx-0 md:mx-2 border-secondary w-16 p-1 text-md">
                   Login
                 </button>
               </Link>

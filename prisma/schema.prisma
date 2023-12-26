@@ -16,6 +16,7 @@ model User {
     description String? @default("")
     username String
     password String
+    avatar String? @default("")
     shoes Shoe[]
 }
 
