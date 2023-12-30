@@ -1,19 +1,12 @@
-"use client";
 
 import Image from "next/image";
 import Link from "next/link";
 import Logo from "../../utils/images/Logo.png";
 import { NavbarItems } from "@/utils/utils";
-
-import { useSession } from "../Session/SessionContext";
-
 import { ProfileDropDown } from "../ProfileDropDown";
-import { useLayout } from "@/utils/useLayout";
-import { useEffect } from "react";
+import { User } from "@/utils";
 
-export const NormalNavbar = async () => {
-
-const { user, isLoggedIn } = useSession();
+const NormalNavbar =({user, isProfileActive}: {isProfileActive: boolean,user?: User}) => {
   return (
     <div className="w-full flex py-2 font-heading justify-between items-center navbar">
       <div className="w-1/4 h-2/3 flex p-2 space-x-2">
@@ -48,8 +41,8 @@ const { user, isLoggedIn } = useSession();
         </ul>
 
         <div className="shrink   mx-auto ml-2 ">
-          {isLoggedIn ? (
-              <ProfileDropDown username={`${user.username}`} />
+          {user ? (
+              <ProfileDropDown user={user} />
           ) : (
             <div className="">
               <Link href={"/login"}>
@@ -69,3 +62,4 @@ const { user, isLoggedIn } = useSession();
     </div>
   );
 };
+export default NormalNavbar;

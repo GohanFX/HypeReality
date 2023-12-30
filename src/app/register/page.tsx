@@ -3,14 +3,12 @@ import React, { useReducer, useState } from "react";
 import Link from "next/link";
 import axios from "axios";
 import { redirect, useRouter } from "next/navigation";
-import { useSession } from "@/components/Session/SessionContext";
 
 const LoginForm: React.FC = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");   
   const router = useRouter();
-  const session = useSession();
   const handleSubmit = async () => {
     console.log(username, password);
     if (username && password) {

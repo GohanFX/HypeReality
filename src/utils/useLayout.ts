@@ -29,6 +29,7 @@ export const useLayout = () => {
             }
         }, [localStorage.getItem("layoutMenu")]);
     }
+
     const toggleMenu = (menu: string) => {
         LayoutMenu[menu] = !LayoutMenu[menu];
         localStorage.setItem("layoutMenu", JSON.stringify(LayoutMenu));
@@ -43,6 +44,7 @@ export const useLayout = () => {
             LayoutMenu[menu] = false;
         });
         localStorage.setItem("layoutMenu", JSON.stringify(LayoutMenu));
+        return LayoutMenu;
     };
 
 

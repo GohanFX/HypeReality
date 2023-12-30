@@ -33,7 +33,7 @@ export const NotificationBar = ({ state }: { state: boolean }) => {
     };
 
     return (
-      <div id="Notifications" className="fixed bottom-0 right-0 text-black">
+      <div id="Notifications" className="fixed bottom-0 right-8 text-black">
         <div className="bg-zinc-800 max-h-[500px] start-0  flex w-[260px] flex-col pt-2.5 pb-10 px-2 rounded-t-3xl  ">
           <div className=" self-center flex items-center gap-1.5 px-5">
             <div className="flex sticky top-0 rounded-b-xl text-indigo-50 text-xl grow ">

@@ -1,44 +1,41 @@
 "use client";
 import { MdEdit, MdEditNote } from "react-icons/md";
 import { User } from "@/utils";
-import Yeezy from "@/utils/images/Yeezy.png";
 import Link from "next/link";
 import { FaFacebook, FaInstagram } from "react-icons/fa";
 import ProfileShoeRow from "@/components/ShoeRelateds/ProfileRow";
-import axios from "axios";
 import { redirect, useRouter } from "next/navigation";
-import { useCallback, useEffect, useState } from "react";
+import {  useEffect, useState } from "react";
 import { useUploadProfilePicture } from "@/utils/useUploadProfilePicture";
-export default function HomePage({ user }: { user: User }) {
+
+
+export default function ProfilePageComponent({ user }: { user: User }) {
   const { updatePicture } = useUploadProfilePicture();
   const router = useRouter();
-  const [profilePicture, setProfilePicture] = useState<File | null>();
+  const [profilePicture, setProfilePicture] = useState<File>();
   const [showMore, setShowMore] = useState(false);
   if (!user) {
     redirect("/");
   }
-
-  useEffect(() => {
-    const updateProfilePictureIfNeeded = async () => {
-        if (profilePicture) {
-          await updatePicture(profilePicture);
-        }
-    };
-    updateProfilePictureIfNeeded();
-    }, [profilePicture]);
+  const [profilePictureName, setProfilePictureName] = useState<string>(`http://localhost:8080/user/profile/${user.id}`);
   
   const handlePictureChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files && e.target.files[0]) {
-      const file = e.target.files[0];
-      setProfilePicture(file);
+    if (e.currentTarget.files && e.currentTarget.files[0]) {
+      setProfilePicture(e.currentTarget.files[0]);
+      await updatePicture(e.currentTarget.files[0]);
+      setProfilePictureName(profilePictureName+ "?");
     }
   };
+
+  useEffect(() => {
+    setProfilePictureName(`http://localhost:8080/user/profile/${user.id}`);
+    console.log("WTF");
+  }, [profilePicture]);
 
   const handleProfileAnimationShow = () => {
     const edit = document.getElementById('edit');
     edit!.classList.remove('hidden');
   };
-
   const handleProfileAnimationExit = () => {
     const edit = document.getElementById('edit');
     edit!.classList.add('hidden');
@@ -48,20 +45,15 @@ export default function HomePage({ user }: { user: User }) {
     input!.click();
   };
   
-  const handlePictureUpdate = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files![0];
-    if (file) {
-      setProfilePicture(file);
-    }
-  };
   return (
     <div className="w-full h-auto space-y-10">
+
       <div className="h-auto w-3/4 mx-auto flex items-center justify-center">
         <div className=" w-3/4 place-content-center flex max-md:flex-col max-md:items-stretch  max-md:gap-0">
           <div className="flex flex-col items-stretch md:w-1/3  max-md:ml-0">
             <button
               style={{
-                backgroundImage: `url(${user.avatar})`,
+                backgroundImage: `url('${profilePictureName}')`,
                 backgroundSize: "cover",
                 backgroundPosition: "center",
                 backgroundRepeat: "no-repeat",
@@ -78,6 +70,7 @@ export default function HomePage({ user }: { user: User }) {
               type="file"
               id="pictureUpdate"
               className="hidden"
+              
               onChange={handlePictureChange}
             />
           </div>

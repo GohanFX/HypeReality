@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useRouter } from "next/navigation";
+import { User } from ".";
 
 export const useUploadProfilePicture = () => {
   const router = useRouter();
@@ -7,16 +8,13 @@ export const useUploadProfilePicture = () => {
   async function updatePicture(profilePicture: File) {
     const formData = new FormData();
     formData.append("picture", profilePicture);
-
     try {
       const { data, status } = await axios.post(
         "/api/v1/user/picture",
         formData,
         {}
       );
-      if (status === 200) {
-        router.refresh() // Refresh the page
-      }
+      return await data; // Refresh the page
     } catch (error) {
       console.error("Error uploading profile picture:", error);
     }

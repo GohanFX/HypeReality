@@ -28,8 +28,12 @@ export const useSession = () => {
     const isLoggedIn = async () => {
         return await getIronSessionData() !== undefined;
     };
+    const getUser = async () => {
+        return (await getIronSessionData()).user;
+    }
     return {
         getSession,
+        getUser,  
         getServerSession,
         isLoggedIn,
         logout,

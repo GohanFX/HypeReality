@@ -7,7 +7,7 @@ interface DropDownMenuProps {
   title: string;
   id: string;
   handler?: void;
-  state?: boolean;
+  isActive?: boolean;
 }
 
 const DropDownMenu: React.FC<DropDownMenuProps> = ({
@@ -15,14 +15,13 @@ const DropDownMenu: React.FC<DropDownMenuProps> = ({
   title,
   id,
   handler,
+  isActive
 }: DropDownMenuProps) => {
-  const {getState} = useLayout();
-  const [isOpened, setIsOpened] = useState<boolean>(getState(id));
-
+  const {getState, toggleMenu, LayoutMenu} = useLayout();
+  const [isOpened, setIsOpened] = useState<boolean>(isActive!);
   useEffect(() => {
-    setIsOpened(getState(id));
-  }, [getState(id)]);
-
+    toggleMenu(id);
+  }, [isOpened]);
 
   return (
     <div

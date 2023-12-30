@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import axios from "axios";
 import { useRouter } from "next/navigation";
-import { useSession } from "@/components/Session/SessionContext";
+import { useSession } from "@/utils/session";
 import { useNotifications } from "@/utils/useNotifications";
 import { NotificationType } from "@/utils/utils";
 
@@ -12,7 +12,6 @@ const LoginForm: React.FC = () => {
   const [password, setPassword] = useState("");
   const router = useRouter();
   const { addNotification, getNotifications } = useNotifications();
-  const { setIsLoggedIn } = useSession();
   const handleSubmit = async () => {
     if (username && password) {
       try {

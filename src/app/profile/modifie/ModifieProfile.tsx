@@ -8,7 +8,6 @@ import { useNotifications } from "@/utils/useNotifications";
 import { NotificationType } from "@/utils/utils";
 export default function ModifyPage({user}: {user: User}) {
     const [characters, setScharecters] = useState(user.description.length);
-
     const [description, setDescription] = useState(user.description);
     const router = useRouter();
     const {addNotification, getLastId} = useNotifications();

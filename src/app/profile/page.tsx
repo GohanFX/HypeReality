@@ -1,18 +1,17 @@
-import { useSession } from "@/utils/session";
-import { ShoeFrames } from "@/utils/utils";
-import { redirect } from "next/navigation";
-import HomePage from "./ProfilePage";
-
+import { useSession } from "@/utils/session";import { redirect } from "next/navigation";
+import ProfilePageComponent from "./ProfilePage";
+import ProfileLayout from "./layout";
 
 export default async function ProfilePage() {
-  const { isLoggedIn, getServerSession } = useSession();
-  if (!(await isLoggedIn())) {
+  const { getUser } = useSession();
+  const user = await getUser();
+  if (!user) {
     redirect("/");
   }
-  const user = (await getServerSession()).user;
 
-  return (
-    <><HomePage user={((await getServerSession()).user!)} /></>
-  );
+  return (<>
+    <ProfilePageComponent user={user} />
+  </>
+);
 
 }
