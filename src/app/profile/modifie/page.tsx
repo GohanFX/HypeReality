@@ -9,7 +9,7 @@ export default async function ModifeProfilePage() {
     if(!(await session.isLoggedIn())) {
         redirect("/");
     }
-    
-    return <ModifyPage user={(await session.getServerSession()).user!} />;
+    const user = (await session.getServerSession()).user!;    
+    return <ModifyPage user={user!} />;
 
 };

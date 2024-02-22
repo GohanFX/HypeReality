@@ -1,6 +1,7 @@
 "use client";
+import { useClickOutside } from "@/utils/useClickOut";
 import { useLayout } from "@/utils/useLayout";
-import { ReactNode, useEffect, useState } from "react";
+import { ReactNode, useEffect, useRef, useState } from "react";
 
 interface DropDownMenuProps {
   children: ReactNode;
@@ -13,33 +14,31 @@ interface DropDownMenuProps {
 const DropDownMenu: React.FC<DropDownMenuProps> = ({
   children,
   title,
-  id,
-  handler,
-  isActive
 }: DropDownMenuProps) => {
-  const {getState, toggleMenu, LayoutMenu} = useLayout();
-  const [isOpened, setIsOpened] = useState<boolean>(isActive!);
-  useEffect(() => {
-    toggleMenu(id);
-  }, [isOpened]);
+  const [isOpened, setIsOpened] = useState<boolean>(false);
+  const dropDown = useClickOutside(() => 
+    setIsOpened(false)
+  );
 
   return (
     <div
-      onClick={() => handler}
-      className="w-full text-lg text-secondary transition-colors"
+      className="w-full text-lg text-secondary transition-all  duration-300 hover:text-primary "
     >
       <button
-        id={id}
-        className={`dropdown-toggle  font-normal cursor-pointer hover:text-primary transition-colors duration-500 ${isOpened
+        name="dropdownStarter"
+        onClick={() => {
+          setIsOpened((isOpen) => !isOpen)
+        }}
+        className={`dropdown-toggle  font-normal cursor-pointer hover:text-primary transition-colors rounded-lg duration-500 ${isOpened
             ? "bg-background h-8 w-32 mx-auto rounded-sm text-accent"
             : "bg-transparent mx-auto w-32 h-8"
         }`}
-        onClick={() => {setIsOpened(!isOpened)}}
+        
       >
         {title}
       </button>
       {isOpened && (
-        <ul className="dropdown-menu  z-20 space-y-1 absolute right-4 w-1/3 md:w-1/6 mt-2 bg-gradient-to-b drop-shadow-md from-slate-200 to-100% to-gray-200  rounded-lg">
+        <ul ref={dropDown} className="dropDown duration-300 ease-in-out z-20 space-y-1 absolute right-4 w-1/3 md:w-1/6 mt-2 bg-gradient-to-b drop-shadow-md from-slate-200 to-100% to-gray-200  rounded-lg">
           {children}
         </ul>
       )}

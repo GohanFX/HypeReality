@@ -1,7 +1,7 @@
 import React from "react";
 import { AiOutlineArrowRight } from "react-icons/ai";
 import ShoeCard from "./ShoeCard";
-import { ShoeFrames } from "@/utils/utils";
+import { ShoeFrames } from "@/utils/contexts";
 
 interface RowParameters {
   title: string,

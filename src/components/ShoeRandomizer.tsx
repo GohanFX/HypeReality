@@ -2,11 +2,10 @@ import React from "react";
 import Yeezy from "../utils/images/yeezy.png";
 import Button from "./Button";
 import Image from "next/image";
-import { Shoes } from "@/utils/utils";
+import { Shoes } from "@/utils/contexts";
 
 const ShoeRandomizer = () => {
   let randomNumber = Math.floor(Math.random() * Shoes.length);
-  console.log(randomNumber);
   const shoe = Shoes[randomNumber];
 
   return (

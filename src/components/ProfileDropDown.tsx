@@ -7,13 +7,12 @@ import {
   AiOutlineMessage,
 } from "react-icons/ai";
 import { MdNotifications, MdSettingsAccessibility } from "react-icons/md";
-import { useNotifications } from "@/utils/useNotifications";
-import { NotificationType } from "@/utils/utils";
-import { User } from "@/utils";
+
 import { handleLogout } from "@/utils/actions";
+import { User } from "@prisma/client";
 
 export const ProfileDropDown =  ({ user }: { user: User }) => {
-  const notificationHandler = useNotifications();  
+
 
   async function destroySess() {
     await handleLogout();
@@ -36,7 +35,7 @@ export const ProfileDropDown =  ({ user }: { user: User }) => {
       <DropDownItem href="/" icon={<MdNotifications className="text-2xl" />}>
         Notifications
       </DropDownItem>
-      <DropDownItem href="/" icon={<AiOutlineMessage className="text-2xl" />}>
+      <DropDownItem href="/chats" icon={<AiOutlineMessage className="text-2xl" />}>
         Chats
       </DropDownItem>
 
@@ -44,12 +43,6 @@ export const ProfileDropDown =  ({ user }: { user: User }) => {
         href="/"
         handler={async () => {
           await destroySess();
-          notificationHandler.addNotification({
-            title: "Logout",
-            message: "Sikeresen kijelentkeztél!",
-            notificationType: NotificationType.Message,
-            id: notificationHandler.getLastId() + 1,
-          });
         }}
         icon={<AiOutlineLogout className="text-2xl" />}
       >

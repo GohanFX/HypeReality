@@ -1,7 +1,7 @@
 
 import { IronSessionData, getIronSession } from "iron-session";
-import { User } from ".";
-import { IronOptions } from "./utils";
+import { User } from "@prisma/client";
+import { IronOptions } from "./contexts";
 import { cookies, headers } from "next/headers";
 
 
@@ -26,7 +26,7 @@ export const useSession = () => {
         return session;
     };
     const isLoggedIn = async () => {
-        return await getIronSessionData() !== undefined;
+        return (await getIronSessionData()).user !== undefined;
     };
     const getUser = async () => {
         return (await getIronSessionData()).user;

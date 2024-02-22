@@ -11,26 +11,69 @@ datasource db {
 }
 
 model User {
-    id Int @id @default(autoincrement())
-    email String @unique
-    description String? @default("")
-    username String
-    password String
-    avatar String? @default("")
-    shoes Shoe[]
+  id          String     @id @default(uuid())
+  email       String     @unique
+  description String?    @default("")
+  username    String
+  password    String
+  avatar      String?    @default("")
+  shoes       Shoe[]
+  chatRooms   ChatRoom[]
+  Messages    Message[]
+  Account     Account[]
 }
 
 model Shoe {
-  id Int @id @default(autoincrement())
-  title String
-  description String @default("")
-  condition ShoeCondition
-  size Float
-  price Float
-  content String?
-  avaiable Boolean @default(true)
-  seller User @relation(fields: [sellerId], references: [id])
-  sellerId Int
+  ShoeId      String        @id @default(uuid()) @map(name: "_id")
+  title       String
+  description String        @default("")
+  condition   ShoeCondition
+  size        Float
+  price       Float
+  content     String?
+  avaiable    Boolean       @default(true)
+  seller      User          @relation(fields: [sellerId], references: [id])
+  sellerId    String
+  accounts    Account[]
+}
+
+model ChatRoom {
+  chatId   String    @id @default(uuid())
+  users    User[]
+  isGroup  Boolean   @default(false)
+  Messages Message[]
+}
+
+model Account {
+  id                String  @id @default(uuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String?
+  access_token      String?
+  expires_in        Int?
+  token_type        String?
+  scope             String?
+  id_token          String?
+  session_state     String?
+
+  user User @relation(fields: [userId], references: [id])
+
+  Shoe       Shoe?   @relation(fields: [shoeShoeId], references: [ShoeId])
+  shoeShoeId String?
+}
+
+model Message {
+  id         String   @id @default(uuid())
+  content    String
+  image      String?
+  sender     User     @relation(fields: [senderId], references: [id])
+  senderId   String
+  chatRoom   ChatRoom @relation(fields: [chatRoomId], references: [chatId])
+  chatRoomId String
+
+  @@index([senderId, chatRoomId])
 }
 
 enum ShoeCondition {

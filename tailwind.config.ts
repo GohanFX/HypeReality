@@ -22,7 +22,7 @@ const config: Config = {
        },
        fontFamily: {
         heading: 'Oswald',
-        body: 'Heebo',
+        body: 'Inter',
       },
        fontSize: {
         sm: '0.750rem',
@@ -37,6 +37,7 @@ const config: Config = {
       fontWeight: {
         normal: '400',
         bold: '700',
+        extrabold: '900',
       },
       opacity: {
         'alts': '.74'

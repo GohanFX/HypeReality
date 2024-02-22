@@ -1,11 +1,5 @@
-import { LoginRequest } from "@/utils";
-import bcrypt from "bcryptjs";
-import { PrismaClient } from "@prisma/client";
-import { IronSessionData, getIronSession } from "iron-session";
-import { IronOptions } from "@/utils/utils";
-import { cookies } from 'next/headers';
 import { useSession } from "@/utils/session";
-const prisma = new PrismaClient();
+import { db } from "@/utils/utils";
 
 interface descriptionRequest {
     description: string
@@ -16,7 +10,7 @@ export async function POST(req: Request) {
     const session = useSession();
     const {user, save} = await session.getServerSession();
 
-    if(data.description.length > 320) {
+    if(data.description.length > 600) {
         return new Response("Description too long", {
             status: 400,
         });
@@ -32,9 +26,9 @@ export async function POST(req: Request) {
             status: 402,
         });
     }
-    const userData = await prisma.user.findUnique({
+    const userData = await db.user.findUnique({
         where: {
-            id: user.id
+            userId: user.userId.toString()
         }
     });
 
@@ -44,9 +38,9 @@ export async function POST(req: Request) {
             status: 403,
         });
     }
-    await prisma.user.update({
+    await db.user.update({
         where: {
-            id: user.id
+            userId: user.userId.toString()
         },
         data: {
             description: data.description

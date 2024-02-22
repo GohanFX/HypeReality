@@ -14,7 +14,7 @@ export default async function Home() {
   const user = await getUser();
   return (
     <>
-    <NormalNavbar user={user} isProfileActive={false}/>  
+    <NormalNavbar user={user} />  
     <main className="flex flex-col items-center justify-between p-24 ">
       <div className="space-y-12 flex-col w-full text-xl">
         <ContentSlide />

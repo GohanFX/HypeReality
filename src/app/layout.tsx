@@ -4,7 +4,7 @@ import { useLayout } from "@/utils/useLayout";
 import { Suspense } from "react";
 import { IronSessionData } from "iron-session";
 import Loading from "@/components/Lodaing";
-import { NotificationBar } from "@/components/Notification/NotificationBar";
+
 import NormalNavbar from "@/components/Navbars/NormalNavbar";
 import { useSession } from "@/utils/session";
 export const metadata: Metadata = {
@@ -22,12 +22,11 @@ export default async function RootLayout({
     <html lang="en">
       <body
         className={
-          " bg-gradient-to-b  from-slate-200 to-100% to-gray-200 overflow-x-hidden "
+          " bg-gradient-to-b h-screen from-slate-200 to-100% to-gray-200 overflow-x-hidden "
         }
       >
         <Suspense fallback={<Loading />}>
           {children}
-          <NotificationBar state={false} />
         </Suspense>
       </body>
     </html>

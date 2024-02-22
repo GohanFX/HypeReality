@@ -2,7 +2,7 @@
 import React, { useReducer, useState } from "react";
 import Link from "next/link";
 import axios from "axios";
-import { redirect, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 
 const LoginForm: React.FC = () => {
   const [username, setUsername] = useState("");
