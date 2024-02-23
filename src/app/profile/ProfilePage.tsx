@@ -19,7 +19,7 @@ export default function ProfilePageComponent({ user }: { user: User }) {
     redirect("/");
   }
   const [profilePictureName, setProfilePictureName] = useState({
-    avatar: `http://localhost:8080/user/profile/${user.userId}`
+    avatar: `http://localhost:8080/user/profile/${user.id}`
   });
   
   const handlePictureChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -27,7 +27,7 @@ export default function ProfilePageComponent({ user }: { user: User }) {
       setProfilePicture(e.currentTarget.files[0]);
       await updatePicture(e.currentTarget.files[0]);
       setProfilePictureName({
-        avatar: `http://localhost:8080/user/profile/${user.userId}`
+        avatar: `http://localhost:8080/user/profile/${user.id}`
       });
     }
   };
