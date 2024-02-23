@@ -10,6 +10,7 @@ import { MdNotifications, MdSettingsAccessibility } from "react-icons/md";
 
 import { handleLogout } from "@/utils/actions";
 import { User } from "@prisma/client";
+import { signOut } from "next-auth/react";
 
 export const ProfileDropDown =  ({ user }: { user: User }) => {
 
@@ -41,9 +42,9 @@ export const ProfileDropDown =  ({ user }: { user: User }) => {
 
       <DropDownItem
         href="/"
-        handler={async () => {
-          await destroySess();
-        }}
+        handler={async () => 
+          signOut()
+        }
         icon={<AiOutlineLogout className="text-2xl" />}
       >
         Logout

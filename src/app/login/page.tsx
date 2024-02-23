@@ -6,19 +6,44 @@ import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useSession } from "@/utils/session";
 import { FaDiscord, FaGoogle } from "react-icons/fa";
+
+type LoginInfomation = {
+  username: string;
+  password: string;
+};
+
+
 const LoginForm: React.FC = () => {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
+  
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const form = new FormData(e.currentTarget);
+      try {
+        const authReq = await signIn("credentials", {
+          username: form.get("username") as string,
+          password: form.get("password") as string,
+          callbackUrl: "/",
+        });
+        alert(form.get("password"));
+        if (authReq!.error) {
+          console.log(authReq!.error);
+        }
+      } catch (err) {
+        console.log(err);
+      }
+    
+  };
   const router = useRouter();
   
   return (
     <div className="w-full h-3/4 flex items-center place-content-center">
       <div className="border border-opacity-5 shadow-md drop-shadow-2xl border-secondary  w-[320px] h-[500px] rounded-lg text-center p-2 items-center flex flex-col">
         <h1 className="text-text text-2xl uppercase font-heading">Login</h1>
-        <form method="POST" action="/api/auth/login">
+        <form onSubmit={handleSubmit}>
           <div className="space-y-4 mt-4">
-          <input type="text" placeholder="Username or E-mail address" className="w-3/4 h-[35px] p-2 outline-none bg-transparent border border-secondary border-opacity-70 rounded-md placeholder:text-secondary placeholder:text-opacity-80 text-secondary"/>
-          <input type="password" placeholder="Password" className="w-3/4 h-[35px] p-2 outline-none bg-transparent border border-secondary border-opacity-70 rounded-md placeholder:text-secondary placeholder:text-opacity-80 text-secondary"/>
+          <input name="username" type="text" placeholder="Username or E-mail address" className="w-3/4 h-[35px] p-2 outline-none bg-transparent border border-secondary border-opacity-70 rounded-md placeholder:text-secondary placeholder:text-opacity-80 text-secondary"/>
+          <input type="password" name="password" placeholder="Password" className="w-3/4 h-[35px] p-2 outline-none bg-transparent border border-secondary border-opacity-70 rounded-md placeholder:text-secondary placeholder:text-opacity-80 text-secondary"/>
           <input type="submit" value="Login" className="w-3/4 h-[35px] outline-none bg-primary text-white rounded-md cursor-pointer font-body"/>
           </div>
         </form>

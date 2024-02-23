@@ -3,9 +3,9 @@ import Link from "next/link";
 import Logo from "../../utils/images/Logo.png";
 import { NavbarItems } from "@/utils/contexts";
 import { ProfileDropDown } from "../ProfileDropDown";
-import { User } from "@/utils";
+import { User } from "@prisma/client";
 
-const NormalNavbar =({user}: {user?: User}) => {
+const NormalNavbar =({user}: {user: User}) => {
   return (
     <div className="w-full flex py-2 font-heading justify-between items-center navbar">
       <div className="w-1/4 h-2/3 flex p-2 space-x-2">

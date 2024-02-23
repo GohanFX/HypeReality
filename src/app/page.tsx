@@ -1,3 +1,4 @@
+"use client";
 import NormalNavbar from "@/components/Navbars/NormalNavbar";
 import Image from "next/image";
 import Frame from "../utils/Frame.png";
@@ -7,14 +8,14 @@ import ContentSlide from "@/components/ContentSlide";
 import { AiOutlineArrowRight } from "react-icons/ai";
 import ShoeRow from "@/components/ShoeRelateds/Rows";
 import ShoeRandomizer from "@/components/ShoeRandomizer";
-import { useSession } from "@/utils/session";
 import { get } from "http";
-export default async function Home() {
-  const {getUser} = useSession();
-  const user = await getUser();
+import { useSession } from "next-auth/react";
+export default function Home() {
+  const { data, status} = useSession();
+  console.log(data);
   return (
     <>
-    <NormalNavbar user={user} />  
+    <NormalNavbar user={data?.user!} />  
     <main className="flex flex-col items-center justify-between p-24 ">
       <div className="space-y-12 flex-col w-full text-xl">
         <ContentSlide />
