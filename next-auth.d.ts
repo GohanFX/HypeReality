@@ -1,13 +1,16 @@
-import { User } from "@prisma/client";
-import NextAuth, {DefaultSession} from "next-auth";
-import { Account } from "@prisma/client";
+
+import { Shoe, User } from "@prisma/client";
+import NextAuth from "next-auth/next";
 declare module 'next-auth' {
     interface Session {
+        accessToken: string
         user: User
     }
     interface Account {
         accessToken: string
-    } 
+    }
+    
+ 
 }
 
 declare module 'next-auth/jwt' {

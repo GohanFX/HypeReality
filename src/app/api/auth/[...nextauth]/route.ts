@@ -26,7 +26,7 @@ export const authOptions: NextAuthOptions = {
           !credentials?.password 
           
         )
-          throw new Error("Invalid credentials");
+          return null;
         const user = await db.user.findFirst({
           where: {
             OR: [
@@ -36,31 +36,40 @@ export const authOptions: NextAuthOptions = {
           },
         });
 
-        if (!user || !user.password) throw new Error("Invalid credentials");
+        if (!user || !user.password) return null;
 
         const isValid = await bcrypt.compare(
           credentials.password,
           user.password
         );
-        if (!isValid) throw new Error("Invalid credentials");
-
-        return user;
+        if (!isValid) return null;
+          console.log(user)
+        return {
+          ...user
+        };
       },
     }),
   ],
   callbacks: {
-    session({ session, token }) {
-      session.user.id = token.id!;
-      console.log({xd: session});
-      return session;
-    },
-    jwt({ token, account, user }) {
-      if (account) {
-        token.accessToken = account.accessToken!;
-        token.id = user.id;
+    async jwt({ token, user }) {
+      console.log(user)
+      // Persist the OAuth access_token and or the user id to the token right after signin
+      if (user) {
+        return {
+          ...token,
+          user: user
+        }
       }
-      return token;
+      return token
     },
+    async session({ session, token, user }) {
+     
+      return {
+        ...session,
+        ...token
+      }
+    }
+    
   },
   pages: {
     signIn: "/login",
@@ -72,5 +81,5 @@ export const authOptions: NextAuthOptions = {
   secret: process.env.AUTH_SECRET!,
 };
 
-const handler = NextAuth(authOptions);
+export const handler = NextAuth(authOptions);
 export { handler as GET, handler as POST };
