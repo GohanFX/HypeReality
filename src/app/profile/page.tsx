@@ -1,13 +1,17 @@
-"use client"
+import { useSession } from "@/utils/session";import { redirect } from "next/navigation";
+import ProfilePageComponent from "./ProfilePage";
+import ProfileLayout from "./layout";
 
+export default async function ProfilePage() {
+  const { getUser } = useSession();
+  const user = await getUser();
+  if (!user) {
+    redirect("/");
+  }
 
-import { useSession } from "@/components/SessionContext";
-import { redirect } from "next/navigation"
+  return (<>
+    <ProfilePageComponent user={user} />
+  </>
+);
 
-export default function ProfilePage() {
-    const { user } = useSession();
-    
-    return (
-        <div className="text-secondary">Hello, {user.username}</div>
-    );
-};
+}

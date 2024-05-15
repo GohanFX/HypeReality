@@ -2,23 +2,33 @@
 import React, { useReducer, useState } from "react";
 import Link from "next/link";
 import axios from "axios";
-import { redirect, useRouter } from "next/navigation";
-import { useSession } from "@/components/SessionContext";
+import { useRouter } from "next/navigation";
+
+type RegisterInfo = {
+  username: string;
+  email: string;
+  password: string;
+  confirmPassword: string;
+};
+
 
 const LoginForm: React.FC = () => {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-  const [email, setEmail] = useState("");   
+  const [registerInfo, setRegisterInfo] = useState<RegisterInfo>({
+    username: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
+  });
   const router = useRouter();
-  const session = useSession();
   const handleSubmit = async () => {
-    console.log(username, password);
-    if (username && password) {
+    
+    if (registerInfo.username && registerInfo.password) {
       try {
-        const authReq = await axios.post("/api/v1/auth/register", {
-          username: username,
-          email: email,
-          password: password,
+        const authReq = await axios.post("/api/auth/register", {
+          username: registerInfo.username,
+          email: registerInfo.email,
+          password: registerInfo.password,
+          confirmPassword: registerInfo.confirmPassword,
         });
         if (authReq.status === 200) {
           router.push("/");
@@ -39,24 +49,32 @@ const LoginForm: React.FC = () => {
             <input
               type="text"
               placeholder="E-mail address"
-              onChange={(e) => setEmail(e.target.value)}
-              className="border-b-2 w-3/4 md:w-3/5 placeholder:text-secondary placeholder:opacity-75 placeholder:uppercase  border-text bg-transparent text-[30] text-secondary font-normal outline-none"
+              onChange={(e) => setRegisterInfo({...registerInfo, email: e.target.value})}
+              className="focus:bg-transparent border-b-2 w-3/4 md:w-3/5 placeholder:text-secondary placeholder:opacity-75 placeholder:uppercase  border-text bg-transparent text-[30] text-secondary font-normal outline-none"
             />
           </div>
           <div>
             <input
               type="text"
               placeholder="Username"
-              onChange={(e) => setUsername(e.target.value)}
-              className="border-b-2 w-3/4 md:w-3/5 border-text bg-transparent placeholder:text-secondary placeholder:opacity-75 placeholder:uppercase text-[30] text-secondary font-normal outline-none"
+              onChange={(e) => setRegisterInfo({...registerInfo, username: e.target.value})}
+              className="focus:bg-transparent border-b-2 w-3/4 md:w-3/5 border-text bg-transparent placeholder:text-secondary placeholder:opacity-75 placeholder:uppercase text-[30] text-secondary font-normal outline-none"
             />
           </div>
           <div>
             <input
               type="password"
               placeholder="Password"
-              onChange={(e) => setPassword(e.target.value)}
-              className="border-b-2 w-3/4 md:w-3/5 border-text bg-transparent placeholder:text-secondary placeholder:opacity-75 placeholder:uppercase text-[30] text-secondary font-normal outline-none"
+              onChange={(e) => setRegisterInfo({...registerInfo, password: e.target.value})}
+              className="focus:bg-transparent border-b-2 w-3/4 md:w-3/5 border-text bg-transparent placeholder:text-secondary placeholder:opacity-75 placeholder:uppercase text-[30] text-secondary font-normal outline-none"
+            />
+          </div>
+          <div>
+            <input
+              type="password"
+              placeholder="Confirm Password"
+              onChange={(e) => setRegisterInfo({...registerInfo, confirmPassword: e.target.value})}
+              className="focus:bg-transparent border-b-2 w-3/4 md:w-3/5 border-text bg-transparent placeholder:text-secondary placeholder:opacity-75 placeholder:uppercase text-[30] text-secondary font-normal outline-none"
             />
           </div>
         </div>
@@ -64,7 +82,7 @@ const LoginForm: React.FC = () => {
           <div className=" w-3/4 md:w-3/5 flex">
             <div className="w-1/2 text-left text-sm uppercase text-secondary">
               <p>Do you have an account?</p>
-              <Link href={"/register"} className="font-semibold text-primary">
+              <Link href={"/login"} className="font-semibold text-primary">
                 Login
               </Link>
             </div>

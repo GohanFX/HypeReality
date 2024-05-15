@@ -1,15 +1,19 @@
-export type User = {
-    id: number;
-    username: string
-    password: string
-    shoes: Array<shoe>
-}
+import { ChatMessageProps } from "@/components/Chats/ChatMessage";
+import { User } from "@prisma/client";
+
 
 declare module "iron-session" {
     interface IronSessionData {
         user?: User
     }
 }
+
+export type Chat = {
+    id: number
+    users: Array<User>
+    messages: Array<ChatMessageProps>
+}
+
 
 export type RegisterRequest = {
     username: string,
